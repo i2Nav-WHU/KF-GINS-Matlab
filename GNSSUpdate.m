@@ -44,19 +44,15 @@ function kf = GNSSUpdate(navstate, gnssdata, kf, antlever, usegnssvel, thisimu, 
             disp(['WARNING: Abandon gnss velocity measurement at: ', num2str(gnssdata(1, 1))]);
         else
             wie_n = [param.WGS84_WIE * cos(navstate.pos(1)); 0; -param.WGS84_WIE * sin(navstate.pos(1))];
-            wen_n = [navstate.vel(2) / (navstate.Rn + navstate.pos(3)); 
-                    -navstate.vel(1) / (navstate.Rm + navstate.pos(3)); 
-                    -navstate.vel(2) * tan(navstate.pos(1)) / (navstate.Rn + navstate.pos(3))];
-            win_n = wie_n + wen_n;
             wib_b = thisimu(2:4) / dt;
-            vel_ant = navstate.vel - skew(win_n) * navstate.cbn * antlever - navstate.cbn * (skew(antlever) * wib_b);
+            vel_ant = navstate.vel - skew(wie_n) * navstate.cbn * antlever - navstate.cbn * (skew(antlever) * wib_b);
             
             % measurement innovation, noise, matrix
             Z = vel_ant - gnssdata(8:10, 1);
             R = diag(power(gnssvelstd, 2));
             H = zeros(3, kf.RANK);
             H(1:3, 4:6) = eye(3);
-            H(1:3, 7:9) = -skew(win_n) * skew(navstate.cbn * antlever) - skew(navstate.cbn * skew(antlever) * wib_b);
+            H(1:3, 7:9) = -skew(wie_n) * skew(navstate.cbn * antlever) - skew(navstate.cbn * skew(antlever) * wib_b);
             H(1:3, 10:12) = -navstate.cbn * skew(antlever);
             H(1:3, 16:18) = -navstate.cbn * skew(antlever) * diag(wib_b);
     

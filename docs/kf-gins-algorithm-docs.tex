@@ -620,9 +620,9 @@ Using the INS-predicted position and GNSS-measured position at time $t_k$, the m
 Differentiating Eq.\eqref{eq:gnss-antenna-position-from-imu-position} with respect to time, we obtain the GNSS antenna phase center velocity expressed in terms of the IMU velocity:
 \begin{equation}
     \label{eq:gnss-antenna-velocity-from-imu-velocity}
-    \boldsymbol{v}_{G}^{\mathrm{n}} = \boldsymbol{v}_{I}^{\mathrm{n}} + \mathbf{C}_{\mathrm{b}}^{\mathrm{n}} \left(\boldsymbol{\omega}_{\mathrm{n} \mathrm{b}}^{\mathrm{b}} \times \right) \boldsymbol{\ell}_{ant}^{\mathrm{b}}
+    \boldsymbol{v}_{G}^{\mathrm{n}} = \boldsymbol{v}_{I}^{\mathrm{n}} + \mathbf{C}_{\mathrm{b}}^{\mathrm{n}} \left(\boldsymbol{\omega}_{\mathrm{e} \mathrm{b}}^{\mathrm{b}} \times \right) \boldsymbol{\ell}_{ant}^{\mathrm{b}}
 \end{equation}
-where $\boldsymbol{\omega}_{\mathrm{n} \mathrm{b}}^{\mathrm{b}} = \boldsymbol{\omega}_{\mathrm{i} \mathrm{b}}^{\mathrm{b}} - \mathbf{C}_{\mathrm{n}}^{\mathrm{b}} \boldsymbol{\omega}_{\mathrm{in}}^{\mathrm{n}}$. 
+where $\boldsymbol{\omega}_{\mathrm{e} \mathrm{b}}^{\mathrm{b}} = \boldsymbol{\omega}_{\mathrm{i} \mathrm{b}}^{\mathrm{b}} - \mathbf{C}_{\mathrm{n}}^{\mathrm{b}} \boldsymbol{\omega}_{\mathrm{ie}}^{\mathrm{n}}$. 
 
 The GNSS-measured velocity is expressed as $\tilde{\boldsymbol{v}}_{G}^{\mathrm{n}} = \boldsymbol{v}_{G}^{\mathrm{n}} - \boldsymbol{n}_{v}$, and the covariance of the velocity measurement noise $\boldsymbol{n}_{v}$ is denoted as $\boldsymbol{R}_{v}$.
 
@@ -630,7 +630,7 @@ Substituting the error defination from Sec.\ref{subsec:error-definition-and-syst
 \begin{equation}
     \begin{aligned}
     \delta \boldsymbol{z}_{v}^{\mathrm{n}} =& \hat{\boldsymbol{r}}_{G}^{\mathrm{n}} - \tilde{\boldsymbol{r}}_{G}^{\mathrm{n}} \\
-    \delta \boldsymbol{z}_{v}^{\mathrm{n}} \approx& \delta \boldsymbol{v}^{\mathrm{n}} - \boldsymbol{\omega}_{\mathrm{in}}^{\mathrm{n}}\times \left(\mathbf{C}_{\mathrm{b}}^{\mathrm{n}} \boldsymbol{\ell}_{ant}^{\mathrm{b}}\right)\times \boldsymbol{\phi} - \left[\mathbf{C}_{\mathrm{b}}^{\mathrm{n}} \left(\boldsymbol{\ell}_{ant}^{\mathrm{b}} \times \boldsymbol{\omega}_{\mathrm{ib}}^{\mathrm{b}}\right)\right]\times \boldsymbol{\phi} - \mathbf{C}_{\mathrm{b}}^{\mathrm{n}} \left(\boldsymbol{\ell}_{ant}^{\mathrm{b}} \times \right) \delta \boldsymbol{\omega}_{\mathrm{ib}}^{\mathrm{b}} + \boldsymbol{n}_{v} \\
+    \delta \boldsymbol{z}_{v}^{\mathrm{n}} \approx& \delta \boldsymbol{v}^{\mathrm{n}} - \boldsymbol{\omega}_{\mathrm{ie}}^{\mathrm{n}}\times \left(\mathbf{C}_{\mathrm{b}}^{\mathrm{n}} \boldsymbol{\ell}_{ant}^{\mathrm{b}}\right)\times \boldsymbol{\phi} - \left[\mathbf{C}_{\mathrm{b}}^{\mathrm{n}} \left(\boldsymbol{\ell}_{ant}^{\mathrm{b}} \times \boldsymbol{\omega}_{\mathrm{ib}}^{\mathrm{b}}\right)\right]\times \boldsymbol{\phi} - \mathbf{C}_{\mathrm{b}}^{\mathrm{n}} \left(\boldsymbol{\ell}_{ant}^{\mathrm{b}} \times \right) \delta \boldsymbol{\omega}_{\mathrm{ib}}^{\mathrm{b}} + \boldsymbol{n}_{v} \\
     \delta \boldsymbol{z}_{v}^{\mathrm{n}} =& \boldsymbol{H}_{v} \delta \boldsymbol{x} + \boldsymbol{n}_{v}
     \end{aligned}
 \end{equation}
@@ -640,7 +640,7 @@ where the error-state of $\boldsymbol{\omega}_{\mathrm{in}}^{\mathrm{n}}$ is neg
         \boldsymbol{0}_3 & \boldsymbol{I}_3 & \boldsymbol{H}_{v,3} & -\mathbf{C}_{\mathrm{b}}^{\mathrm{n}} \left(\boldsymbol{\ell}_{ant}^{\mathrm{b}} \times \right) & \boldsymbol{0}_3 & -\mathbf{C}_{\mathrm{b}}^{\mathrm{n}} \left(\boldsymbol{\ell}_{ant}^{\mathrm{b}} \times \right) \operatorname{diag}(\boldsymbol{\omega}_{\mathrm{ib}}^{\mathrm{b}}) & \boldsymbol{0}_3
     \end{bmatrix}
 \end{equation}
-where $\boldsymbol{H}_{v,3} = - \boldsymbol{\omega}_{\mathrm{in}}^{\mathrm{n}}\times \left(\mathbf{C}_{\mathrm{b}}^{\mathrm{n}} \boldsymbol{\ell}_{ant}^{\mathrm{b}}\right)\times  - \left[\mathbf{C}_{\mathrm{b}}^{\mathrm{n}} \left(\boldsymbol{\ell}_{ant}^{\mathrm{b}} \times \boldsymbol{\omega}_{\mathrm{ib}}^{\mathrm{b}}\right)\right]\times $.
+where $\boldsymbol{H}_{v,3} = - \boldsymbol{\omega}_{\mathrm{ie}}^{\mathrm{n}}\times \left(\mathbf{C}_{\mathrm{b}}^{\mathrm{n}} \boldsymbol{\ell}_{ant}^{\mathrm{b}}\right)\times  - \left[\mathbf{C}_{\mathrm{b}}^{\mathrm{n}} \left(\boldsymbol{\ell}_{ant}^{\mathrm{b}} \times \boldsymbol{\omega}_{\mathrm{ib}}^{\mathrm{b}}\right)\right]\times $.
 
 The GNSS velocity measurement model is then employed to perform the system update by Eq.\eqref{eq:kalman-update-equation}.
 
@@ -652,8 +652,8 @@ The INS-predicted velocity are the odometer wheel are expressed as:
 \begin{equation}
     \label{eq:odo-nhc-velocity-predicted-by-ins-velocity}
     \begin{aligned}
-        \boldsymbol{v}_{odo,nhc}^{\mathrm{v}} =& \mathbf{C}_{\mathrm{b}}^{\mathrm{v}} \mathbf{C}_{\mathrm{n}}^{\mathrm{b}} \left( \boldsymbol{v}_{I}^{\mathrm{n}} + \mathbf{C}_{\mathrm{b}}^{\mathrm{n}} \left(\boldsymbol{\omega}_{\mathrm{n} \mathrm{b}}^{\mathrm{b}} \times \right) \boldsymbol{\ell}_{odo}^{\mathrm{b}} \right) \\
-        \boldsymbol{v}_{odo,nhc}^{\mathrm{v}} =& \mathbf{C}_{\mathrm{b}}^{\mathrm{v}} \mathbf{C}_{\mathrm{n}}^{\mathrm{b}} \boldsymbol{v}_{I}^{\mathrm{n}} + \mathbf{C}_{\mathrm{b}}^{\mathrm{v}} \left(\boldsymbol{\omega}_{\mathrm{n} \mathrm{b}}^{\mathrm{b}} \times \right) \boldsymbol{\ell}_{odo}^{\mathrm{b}}
+        \boldsymbol{v}_{odo,nhc}^{\mathrm{v}} =& \mathbf{C}_{\mathrm{b}}^{\mathrm{v}} \mathbf{C}_{\mathrm{n}}^{\mathrm{b}} \left( \boldsymbol{v}_{I}^{\mathrm{n}} + \mathbf{C}_{\mathrm{b}}^{\mathrm{n}} \left(\boldsymbol{\omega}_{\mathrm{e} \mathrm{b}}^{\mathrm{b}} \times \right) \boldsymbol{\ell}_{odo}^{\mathrm{b}} \right) \\
+        \boldsymbol{v}_{odo,nhc}^{\mathrm{v}} =& \mathbf{C}_{\mathrm{b}}^{\mathrm{v}} \mathbf{C}_{\mathrm{n}}^{\mathrm{b}} \boldsymbol{v}_{I}^{\mathrm{n}} + \mathbf{C}_{\mathrm{b}}^{\mathrm{v}} \left(\boldsymbol{\omega}_{\mathrm{e} \mathrm{b}}^{\mathrm{b}} \times \right) \boldsymbol{\ell}_{odo}^{\mathrm{b}}
     \end{aligned}
 \end{equation}
 where $\mathbf{C}_{\mathrm{b}}^{\mathrm{v}}$ is the rotation matrix between the body and vehicle frames, and $\boldsymbol{\ell}_{odo}^{\mathrm{b}}$ is the odometer lever arm in the body frame.
@@ -662,17 +662,17 @@ Applying error perturbation to Eq.\eqref{eq:odo-nhc-velocity-predicted-by-ins-ve
 \begin{equation}
     \begin{aligned}
     \delta \boldsymbol{z}_{odo,nhc}^{\mathrm{v}} =& \hat{\boldsymbol{v}}_{odo,nhc}^{\mathrm{v}} - \tilde{\boldsymbol{v}}_{odo,nhc}^{\mathrm{v}} \\ 
-    \delta \boldsymbol{z}_{odo,nhc}^{\mathrm{v}} \approx &  \mathbf{C}_{\mathrm{b}}^{\mathrm{v}} \mathbf{C}_{\mathrm{n}}^{\mathrm{b}} \delta \boldsymbol{v}^{\mathrm{n}} - \mathbf{C}_{\mathrm{b}}^{\mathrm{v}} \mathbf{C}_{\mathrm{n}}^{\mathrm{b}} \left(\boldsymbol{v}^{\mathrm{n}} \times\right) \boldsymbol{\phi} - \mathbf{C}_{\mathrm{b}}^{\mathrm{v}} \left(\boldsymbol{\ell}_{odo}^{\mathrm{b}} \times \right) \mathbf{C}_{\mathrm{n}}^{\mathrm{b}} \left( \boldsymbol{\omega}_{\mathrm{in}}^{\mathrm{n}} \times \right) \boldsymbol{\phi} - \mathbf{C}_{\mathrm{b}}^{\mathrm{v}} \left(\boldsymbol{\ell}_{odo}^{\mathrm{b}} \times \right) \delta \boldsymbol{\omega}_{\mathrm{ib}}^{\mathrm{b}} + \boldsymbol{n}_{odo,nhc} \\
+    \delta \boldsymbol{z}_{odo,nhc}^{\mathrm{v}} \approx &  \mathbf{C}_{\mathrm{b}}^{\mathrm{v}} \mathbf{C}_{\mathrm{n}}^{\mathrm{b}} \delta \boldsymbol{v}^{\mathrm{n}} - \mathbf{C}_{\mathrm{b}}^{\mathrm{v}} \mathbf{C}_{\mathrm{n}}^{\mathrm{b}} \left(\boldsymbol{v}^{\mathrm{n}} \times\right) \boldsymbol{\phi} - \mathbf{C}_{\mathrm{b}}^{\mathrm{v}} \left(\boldsymbol{\ell}_{odo}^{\mathrm{b}} \times \right) \mathbf{C}_{\mathrm{n}}^{\mathrm{b}} \left( \boldsymbol{\omega}_{\mathrm{ie}}^{\mathrm{n}} \times \right) \boldsymbol{\phi} - \mathbf{C}_{\mathrm{b}}^{\mathrm{v}} \left(\boldsymbol{\ell}_{odo}^{\mathrm{b}} \times \right) \delta \boldsymbol{\omega}_{\mathrm{ib}}^{\mathrm{b}} + \boldsymbol{n}_{odo,nhc} \\
     \delta \boldsymbol{z}_{odo,nhc}^{\mathrm{v}} =& \boldsymbol{H}_{odo,nhc} \delta \boldsymbol{x} + \boldsymbol{n}_{odo,nhc}
     \end{aligned}
 \end{equation}
-where the error-state of $\boldsymbol{\omega}_{\mathrm{in}}^{\mathrm{n}}$ is also neglected, and the ODO/NHC measurement matrix $\boldsymbol{H}_{odo,nhc}$ is given by:
+where the error-state of $\boldsymbol{\omega}_{\mathrm{ie}}^{\mathrm{n}}$ is also neglected, and the ODO/NHC measurement matrix $\boldsymbol{H}_{odo,nhc}$ is given by:
 \begin{equation}
     \boldsymbol{H}_{odo,nhc} = \begin{bmatrix}
         \boldsymbol{0}_3 & \mathbf{C}_{\mathrm{b}}^{\mathrm{v}} \mathbf{C}_{\mathrm{n}}^{\mathrm{b}} & \boldsymbol{H}_{odo,nhc,3} & -\mathbf{C}_{\mathrm{b}}^{\mathrm{v}} \left(\boldsymbol{\ell}_{odo}^{\mathrm{b}} \times \right) & \boldsymbol{0}_3 & -\mathbf{C}_{\mathrm{b}}^{\mathrm{v}} \left(\boldsymbol{\ell}_{odo}^{\mathrm{b}} \times \right) \operatorname{diag}(\boldsymbol{\omega}_{\mathrm{ib}}^{\mathrm{b}}) & \boldsymbol{0}_3
     \end{bmatrix}
 \end{equation}
-where $\boldsymbol{H}_{odo,nhc,3} = - \mathbf{C}_{\mathrm{b}}^{\mathrm{v}} \mathbf{C}_{\mathrm{n}}^{\mathrm{b}} \left(\boldsymbol{v}^{\mathrm{n}} \times\right) - \mathbf{C}_{\mathrm{b}}^{\mathrm{v}} \left(\boldsymbol{\ell}_{odo}^{\mathrm{b}} \times \right) \mathbf{C}_{\mathrm{n}}^{\mathrm{b}} \left( \boldsymbol{\omega}_{\mathrm{in}}^{\mathrm{n}} \times \right)$.
+where $\boldsymbol{H}_{odo,nhc,3} = - \mathbf{C}_{\mathrm{b}}^{\mathrm{v}} \mathbf{C}_{\mathrm{n}}^{\mathrm{b}} \left(\boldsymbol{v}^{\mathrm{n}} \times\right) - \mathbf{C}_{\mathrm{b}}^{\mathrm{v}} \left(\boldsymbol{\ell}_{odo}^{\mathrm{b}} \times \right) \mathbf{C}_{\mathrm{n}}^{\mathrm{b}} \left( \boldsymbol{\omega}_{\mathrm{ie}}^{\mathrm{n}} \times \right)$.
 
 Finally, the ODO/NHC velocity measurement model is employed in Eq.\eqref{eq:kalman-update-equation} to update the system state vector and covariance matrix.
 

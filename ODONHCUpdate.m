@@ -15,13 +15,9 @@ function kf = ODONHCUpdate(navstate, odonhc_vel, kf, cfg, thisimu, dt)
     %% measurement innovation
     wib_b = thisimu(2:4, 1) / dt;
     wie_n = [param.WGS84_WIE * cos(navstate.pos(1)); 0; -param.WGS84_WIE * sin(navstate.pos(1))];
-    wen_n = [navstate.vel(2) / (navstate.Rn + navstate.pos(3)); 
-            -navstate.vel(1) / (navstate.Rm + navstate.pos(3)); 
-            -navstate.vel(2) * tan(navstate.pos(1)) / (navstate.Rn + navstate.pos(3))];
-    win_n = wie_n + wen_n;
-    wnb_b = wib_b - navstate.cbn' * win_n;
+    web_b = wib_b - navstate.cbn' * wie_n;
 
-    vel_pre = cfg.cbv * (navstate.cbn' * navstate.vel + skew(wnb_b) * cfg.odolever);
+    vel_pre = cfg.cbv * (navstate.cbn' * navstate.vel + skew(web_b) * cfg.odolever);
     Z = vel_pre - odonhc_vel;
 
     %% measurement equation and noise
